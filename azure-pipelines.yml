@@ -1,0 +1,47 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+parameters:
+  - name: oemname
+    displayName: OEM Name to deploy.
+    type: string
+    values:
+      - tls
+      - samlb2
+      - aplus
+      - oauth
+      - trustedfed
+      - bosch-cmc
+      - bosch-cmcevo
+      - fca-giorgiojpn
+      - fca-gsdp
+      - ford
+      - intams
+      - ivecoihp
+      - hkmortrex
+      - hyundaikia
+      - mmc-melco
+      - nissan
+      - saic
+      - stl-caruso2
+      - stl-psa
+      - subaru
+      - toyota
+      - tt-csac
+      - vgtt-sem
+      - vw-a4e
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: |
+    low_oems=("bosch-cmc" "fca-giorgiojpn" "ivecoihp" "hkmortrex" "mmc-melco" "saic" "stl-caruso2" "subaru" "toyota" "vw-a4e")
+    for oem in "${low_oems[@]}"; do
+      if [[ $oem =~ ^${{ parameters.oemname }}$ ]]; then
+        echo "This is low oem"
+      fi
+    done
+  displayName: 'Run a multi-line script'
